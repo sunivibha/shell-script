@@ -23,7 +23,7 @@ exit
 
 
 ## Main Program
-AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-8-DevOPs-practice" | jq '.Images[].ImageId' | sed -e 's/"//g')
+ AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-8-DevOPs-practice" | jq '.Images[].ImageId' | sed -e 's/"//g')
 if [ -z "${AMI_ID}" ]; then
   echo "AMI_ID not found"
   exit 1
