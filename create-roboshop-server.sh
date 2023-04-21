@@ -16,7 +16,7 @@ create_ec2() {
      --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehaviour=stop}"\
      --security-group-ids ${SGID} \
      | jq '.Instances[].privateIpAddress' | sed -e 's/"//g')
-exit
+
   sed -e "s/IPADDRESS/${PRIVATE_IP}/" -e "s/COMPONENT/${COMPONENT}/" route53.json >/tmp/record.json
   aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json | jq
 }
@@ -37,6 +37,6 @@ fi
 
 
 for component in catalogue cart user shipping payment frontend mongodb mysql rabbitmq redis dispatch; do
-  COMPONENT="${component}-${env}"
+  COMPONENT="${env}-${component}"
   create_ec2
 done
