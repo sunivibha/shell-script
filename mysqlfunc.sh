@@ -37,7 +37,7 @@ PRINT "restart MySQL Service"
 systemctl restart mysqld
 STAT $?
 
-echo "show databases | mysql -uroot -pROBOSHOP_MYSQL_PASSWORD"
+echo "show databases | mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD}
 if  [ $? -ne 0 ]
 then
  echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'ROBOSHOP_MYSQL_PASSWORD';" > /tmp/root-pass-sql
